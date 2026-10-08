@@ -339,13 +339,6 @@ input[readonly]{color:var(--ink2);background:var(--line2)}
         </div>
       </div>
     </div>
-    <div class="f" style="max-width:240px">
-      <label for="departF">Departure Time <span class="ext">(fill as you leave)</span></label>
-      <div class="withbtn">
-        <input type="text" id="departF" data-k="depart" data-time="1" class="mono" inputmode="numeric" placeholder="13:00">
-        <button class="btn now" type="button" data-now="departF">Now</button>
-      </div>
-    </div>
     <p class="hint bad hidden" id="visitIncomplete"></p>
   </div>
 
@@ -392,6 +385,19 @@ input[readonly]{color:var(--ink2);background:var(--line2)}
     <p class="hint">Only if you measured one &mdash; leave blank otherwise.</p>
   </div>
 
+  <!-- 5 departure -->
+  <div class="card">
+    <h2><span class="n">Step 5</span> Departure</h2>
+    <div class="f" style="max-width:240px">
+      <label for="departF">Departure Time <span class="ext">(as you leave)</span></label>
+      <div class="withbtn">
+        <input type="text" id="departF" data-k="depart" data-time="1" class="mono" inputmode="numeric" placeholder="13:00">
+        <button class="btn now" type="button" data-now="departF">Now</button>
+      </div>
+    </div>
+    <p class="hint">Hit Now on your way out, then Finish &amp; send.</p>
+  </div>
+
   <div class="actions noprint">
     <button class="btn pri" type="button" id="finishBtn">Finish &amp; send sheet</button>
     <button class="btn" type="button" id="printBtn">Print / PDF</button>
@@ -435,7 +441,7 @@ var STORE="kei-quicksheet-v1";
 var $=function(id){ return document.getElementById(id); };
 /* App build. Bump on every version handed over, so a phone can be checked at a glance
    against the filename it came from. */
-var BUILD="1";
+var BUILD="2";
 var RECORD=!!BAKED;                 /* opened as a finished record, not the blank app */
 var PRINTMODE=/(^|[?#&])print/.test(location.search+location.hash);
 var S=null, saveTimer=null, book=null;
