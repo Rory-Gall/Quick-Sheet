@@ -1,0 +1,1230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KEI - Quick Sheet</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f4f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12161a" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Quick Sheet">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<style>
+:root{
+  --bg:#f4f6f8; --panel:#ffffff; --ink:#101418; --ink2:#4a5561; --ink3:#78848f;
+  --line:#d8dee5; --line2:#eaeef2;
+  --accent:#1a7f45; --accent-ink:#ffffff;
+  --good:#1a7f45; --good-bg:#e4f4ea;
+  --warn:#a86a00; --warn-bg:#fdf0d9;
+  --bad:#b3261e; --bad-bg:#fbe6e4;
+  --shadow:0 1px 2px rgba(16,20,24,.07), 0 4px 14px rgba(16,20,24,.06);
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#12161a; --panel:#1b2127; --ink:#eef2f5; --ink2:#b3bfc9; --ink3:#8494a1;
+    --line:#2e373f; --line2:#242b32;
+    --accent:#5fd493; --accent-ink:#0a2a18;
+    --good:#5fd493; --good-bg:#12321f;
+    --warn:#e8b25a; --warn-bg:#33260d;
+    --bad:#f2867d; --bad-bg:#391916;
+    --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-text-size-adjust:100%;
+  padding:0 0 96px;
+}
+.wrap{max-width:900px;margin:0 auto;padding:0 12px}
+
+header.top{
+  background:var(--panel); border-bottom:1px solid var(--line);
+  padding:8px 0; margin-bottom:8px; position:sticky; top:0; z-index:30;
+}
+header.top .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.2px;font-size:15px;white-space:nowrap}
+.brand span{color:var(--ink3);font-weight:500}
+.brand .build{
+  font-size:11px;font-weight:700;color:var(--accent);border:1px solid currentColor;
+  border-radius:999px;padding:1px 7px;margin-left:2px;letter-spacing:.02em
+}
+.pill{
+  margin-left:auto;font-size:12px;font-weight:600;padding:4px 9px;border-radius:999px;
+  background:var(--line2);color:var(--ink3);white-space:nowrap
+}
+.pill.ok{background:var(--good-bg);color:var(--good)}
+.pill.dirty{background:var(--warn-bg);color:var(--warn)}
+
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow); padding:11px; margin:0 0 8px;
+}
+.card h2{
+  font-size:16px;color:var(--ink);
+  margin:0 0 8px;font-weight:800;display:flex;align-items:center;gap:9px;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none
+}
+.card h2 .n{
+  background:var(--accent);color:var(--accent-ink);border-radius:6px;
+  min-width:22px;height:22px;padding:0 8px;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;
+  font-size:13px;letter-spacing:0;flex:0 0 auto
+}
+.card h2{min-height:42px}
+.card h2::after{
+  content:"−";margin-left:auto;flex:0 0 auto;
+  width:38px;height:38px;border-radius:999px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--line);background:var(--bg);color:var(--ink2);
+  font-size:22px;font-weight:600;line-height:1
+}
+.card.closed h2::after{content:"+";color:var(--accent);border-color:var(--accent)}
+.card.closed h2{margin-bottom:0}
+@media screen{
+  .card.closed > *:not(h2){display:none}
+}
+h3.sub{font-size:13px;font-weight:700;color:var(--ink2);margin:10px 0 6px}
+h3.sub:first-of-type{margin-top:0}
+
+label{display:block;font-size:11px;font-weight:600;color:var(--ink2);margin:0 0 3px}
+input[type=text],input[type=date],select,textarea{
+  width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
+  background:var(--bg);color:var(--ink);font-size:16px;font-family:inherit;
+  font-variant-numeric:tabular-nums
+}
+textarea{min-height:68px;resize:vertical;line-height:1.45}
+select{appearance:none;-webkit-appearance:none;background-image:none}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+input.warnf{border-color:var(--warn);background:var(--warn-bg)}
+input.missing,select.missing{border-color:var(--bad);background:var(--bad-bg)}
+.seg.missing label{border-color:var(--bad);background:var(--bad-bg)}
+.chk.confirm input[type=text]{border-color:var(--warn);background:var(--warn-bg)}
+.hint.bad{color:var(--bad);font-weight:600}
+input[readonly]{color:var(--ink2);background:var(--line2)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+.row{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 7px}
+.row>div{flex:1 1 120px;min-width:104px}
+.row.tight>div{min-width:78px}
+.row:last-child{margin-bottom:0}
+.f{margin:0 0 7px}
+.f:last-child{margin-bottom:0}
+
+.withbtn{display:flex;gap:6px}
+.withbtn input{flex:1 1 auto;min-width:0}
+.btn{
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);
+  border-radius:9px;padding:10px 12px;font-size:14px;font-weight:600;font-family:inherit;
+  cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent
+}
+.btn:active{transform:translateY(1px)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.sm{padding:11px 12px;font-size:13px}
+.btn.now{padding:10px 11px;font-size:13px;color:var(--accent);font-weight:700}
+.btn.danger{color:var(--bad)}
+
+/* segmented radios */
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg label{
+  display:inline-flex;align-items:center;justify-content:center;margin:0;
+  border:1px solid var(--line);border-radius:999px;padding:7px 11px;
+  font-size:13px;font-weight:600;color:var(--ink2);background:var(--bg);
+  cursor:pointer;-webkit-tap-highlight-color:transparent
+}
+.seg input{position:absolute;opacity:0;width:0;height:0}
+.seg input:checked+span{color:var(--accent-ink)}
+.seg label:has(input:checked),.seg label.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.seg label:has(input:checked) span,.seg label.on span{color:var(--accent-ink)}
+
+/* checkbox rows */
+.chk{display:flex;align-items:center;gap:9px;margin:0 0 4px}
+.chk input[type=checkbox]{
+  width:30px;height:30px;flex:0 0 30px;margin:7px 0;accent-color:var(--accent)
+}
+.chk input[type=text]{flex:1 1 auto;min-width:0}
+.chk label.inline{
+  margin:0;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;
+  padding:9px 0;flex:1 1 auto;-webkit-tap-highlight-color:transparent
+}
+.chkgrid .chk{margin:0}   /* one checkpoint per line, top to bottom */
+
+/* measurement-quality yes/no rows */
+.qrow{border-top:1px solid var(--line2);padding:7px 0 0;margin:7px 0 0}
+.qrow:first-child{border-top:0;padding-top:0;margin-top:0}
+.qlab{font-size:13px;font-weight:600;color:var(--ink);margin:0 0 7px}
+.qlab em{font-style:normal;text-decoration:underline}
+.qnote{margin:9px 0 0}
+.ext{color:var(--ink3);font-weight:500;font-size:11px}
+
+.panel{border:1px solid var(--line2);border-radius:9px;padding:9px;margin:0 0 7px;background:var(--bg)}
+.panel h4{margin:0 0 7px;font-size:13px;font-weight:700;color:var(--accent)}
+/* On screen the sheet is always one column, at every width including landscape.
+   You fill SG arrival at the start of a visit and departure at the end, and the
+   channels one after another — side by side would break that reading order.
+   The printed archive copy still uses two columns; see the print block below. */
+.hint{font-size:11px;color:var(--ink3);margin:6px 0 0}
+.hint.warn{color:var(--warn)}
+
+/* the flow question */
+.flowq{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.flabel{font-size:14px;font-weight:700;flex:1 1 auto}
+
+/* flow sheet photos */
+.pgrid{margin:0 0 10px}
+.pgrid:empty{margin:0}
+.pgrid .ph{position:relative;margin:0 0 10px}
+.pgrid .ph img{width:100%;height:auto;border-radius:9px;border:1px solid var(--line);display:block}
+.phx{
+  position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel);color:var(--bad);
+  font-size:18px;font-weight:700;line-height:1;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.25)
+}
+
+/* drafts */
+.draft{
+  display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);
+  border-radius:9px;margin:0 0 8px;background:var(--bg)
+}
+.draft .d1{flex:1 1 auto;min-width:0}
+.draft .dn{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.draft .dd{font-size:12px;color:var(--ink3)}
+.draft.cur{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0 0}
+.actions .btn{flex:1 1 auto}
+
+.banner{
+  border-radius:var(--r);padding:12px 14px;margin:0 0 12px;font-size:14px;
+  background:var(--good-bg);color:var(--good);border:1px solid currentColor;font-weight:600
+}
+#updatePill{
+  position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:60;
+  background:var(--accent);color:var(--accent-ink);border:0;border-radius:999px;
+  padding:13px 20px;font-size:14px;font-weight:600;font-family:inherit;
+  box-shadow:0 4px 14px rgba(0,0,0,.3);cursor:pointer
+}
+.banner.warn{
+  background:var(--warn-bg);color:var(--warn);
+  display:flex;gap:10px;align-items:center;font-weight:500
+}
+.banner.warn b{font-weight:700}
+.banner.warn .btn{
+  flex:0 0 auto;border-color:currentColor;color:inherit;background:transparent;font-weight:700
+}
+.foot{color:var(--ink3);font-size:12px;text-align:center;margin:18px 0 0;line-height:1.7}
+.hidden{display:none !important}
+
+/* The printed sheet is the archive copy that lands beside the old scans, so it
+   wants to read like the paper form: dense, two columns, one big sketch box. */
+@media print{
+  @page{ size:letter; margin:11mm 9mm; }
+  body{background:#fff;color:#000;padding:0;font-size:10px;line-height:1.3}
+  header.top{position:static;border:0;padding:0 0 6px;margin:0 0 8px;border-bottom:1px solid #999}
+  .brand{font-size:12px}
+  .noprint,.pill,.hint,.btn,datalist{display:none !important}
+
+  .wrap{max-width:none;padding:0;column-count:2;column-gap:7mm}
+  .card{
+    break-inside:avoid;-webkit-column-break-inside:avoid;
+    box-shadow:none;border-color:#999;border-radius:5px;
+    padding:7px 8px;margin:0 0 6px;background:#fff
+  }
+  .card h2{font-size:8px;margin:0 0 5px;color:#000;letter-spacing:.06em;min-height:0}
+  .card h2::after{content:none}
+  .card h2 .n{background:#000;color:#fff;min-width:13px;height:13px;font-size:8px}
+  h3.sub{font-size:9px;margin:8px 0 4px}
+  .banner{column-span:all;padding:5px 8px;font-size:10px;margin:0 0 7px;background:#fff;color:#000}
+
+  label{font-size:7.5px;margin:0 0 1px;color:#000}
+  input[type=text],input[type=date],select,textarea{
+    padding:2px 4px;font-size:10px;border-radius:3px;border-color:#999;background:#fff;color:#000
+  }
+  input[readonly]{background:#fff}
+  textarea{min-height:38px}
+  .f,.row{margin:0 0 4px}
+  .withbtn{display:block}
+  .panel{padding:6px 7px;margin:0 0 5px;background:#fff;border-color:#bbb}
+  .panel h4{font-size:9px;margin:0 0 5px;color:#000}
+  .cols2,.cols3{display:flex;gap:5px}
+  .cols2>*,.cols3>*{flex:1 1 0;min-width:0;margin-bottom:0}
+
+  .seg{gap:3px}
+  .seg label{padding:1px 5px;font-size:8px;border-color:#999;background:#fff;color:#000}
+  .seg label:has(input:checked),.seg label.on{background:#000;border-color:#000;color:#fff}
+  .seg label:has(input:checked) span,.seg label.on span{color:#fff}
+
+  .chk{gap:6px;margin:0 0 3px}
+  .chk input[type=checkbox]{width:12px;height:12px;flex:0 0 12px;margin:0}
+  .chk label.inline{padding:1px 0;font-size:9px}
+  .chkgrid{gap:2px 10px}
+  .qrow{padding-top:4px;margin-top:4px}
+  .qlab{font-size:9px;margin:0 0 3px}
+  .qnote{margin:4px 0 0}
+
+  .pgrid.rec .ph img{max-width:100%}
+  .foot{margin:4px 0 0;column-span:all;font-size:9px;color:#000;break-before:avoid}
+
+  /* a value longer than its box would be clipped, and this copy is the archive.
+     PRINTMODE swaps every field for one of these, which wraps instead. */
+  .printval{
+    border:1px solid #999;border-radius:3px;padding:2px 4px;min-height:15px;
+    font-size:10px;line-height:1.25;white-space:pre-wrap;overflow-wrap:anywhere;background:#fff
+  }
+  .printval.tall{min-height:36px}
+  .printval:empty{min-height:15px}
+  .chk .printval,.withbtn .printval{flex:1 1 auto;min-width:0}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">KEI <span>/ Quick Sheet</span> <span class="build" id="buildTag"></span></div>
+    <div class="pill" id="statePill">Ready</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="banner hidden" id="recBanner"></div>
+
+  <div class="banner warn hidden noprint" id="installBanner">
+    <div id="installMsg" style="flex:1 1 auto"></div>
+    <button class="btn sm hidden" id="installBtn" type="button">Install</button>
+  </div>
+
+  <!-- drafts -->
+  <div class="card noprint" id="draftsCard">
+    <h2><span class="n">&#9776;</span> Sheets on this phone</h2>
+    <div id="draftList"></div>
+    <div class="actions">
+      <button class="btn pri" type="button" id="newSheetBtn">New sheet</button>
+      <button class="btn" type="button" id="exportAllBtn">Send all completed sheets</button>
+    </div>
+    <p class="hint" id="exportSummary" style="display:none"></p>
+    <p class="hint">Everything is saved on this device as you type. Nothing is sent anywhere.</p>
+  </div>
+
+  <!-- 1 visit -->
+  <div class="card">
+    <h2><span class="n">Step 1</span> Site Visit Details</h2>
+    <div class="f">
+      <label for="siteSel">Station Name</label>
+      <select id="siteSel" data-k="site"><option value="">— choose a station —</option></select>
+    </div>
+    <div class="row">
+      <div>
+        <label for="dateF">Date <span class="ext">(YYYY-MM-DD)</span></label>
+        <input type="text" id="dateF" data-k="date" data-dateiso="1" class="mono" inputmode="numeric" placeholder="2026-09-04">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="techF">Your Name</label>
+        <input type="text" id="techF" data-k="tech" autocapitalize="characters" autocomplete="off">
+      </div>
+      <div>
+        <label for="arriveF">Arrival Time</label>
+        <div class="withbtn">
+          <input type="text" id="arriveF" data-k="arrive" data-time="1" class="mono" inputmode="numeric" placeholder="12:00">
+          <button class="btn now" type="button" data-now="arriveF">Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="f" style="max-width:240px">
+      <label for="departF">Departure Time <span class="ext">(fill as you leave)</span></label>
+      <div class="withbtn">
+        <input type="text" id="departF" data-k="depart" data-time="1" class="mono" inputmode="numeric" placeholder="13:00">
+        <button class="btn now" type="button" data-now="departF">Now</button>
+      </div>
+    </div>
+    <p class="hint bad hidden" id="visitIncomplete"></p>
+  </div>
+
+  <!-- 3 arrival SG -->
+  <div class="card">
+    <h2><span class="n">Step 2</span> Staff Gauge Reading</h2>
+    <div class="panel" id="sgA">
+        <div class="f">
+          <label>Time</label>
+          <div class="withbtn">
+            <input type="text" data-k="sg.a.time" data-time="1" class="mono" inputmode="numeric" placeholder="12:13">
+            <button class="btn now" type="button" data-nowk="sg.a.time">Now</button>
+          </div>
+        </div>
+        <div class="f" style="max-width:240px">
+          <label>Staff Gauge (m)</label><input type="text" data-k="sg.a.sg" data-calc="a" class="mono" inputmode="decimal">
+        </div>
+        <div class="row tight hidden" id="angRow_a">
+          <div><label>Staff Gauge Angle <span class="ext">(set per station)</span></label><input type="text" data-k="sg.a.ang" class="mono" readonly tabindex="-1"></div>
+          <div><label>Calculated Staff Gauge <span class="ext">(auto)</span></label><input type="text" data-k="sg.a.calc" class="mono" readonly tabindex="-1"></div>
+        </div>
+      </div>
+    <p class="hint bad hidden" id="sgIncomplete"></p>
+    <p class="hint" id="calcHint">The Calculated Staff Gauge fills in as reading &times; angle once you pick a station.</p>
+  </div>
+
+  <!-- 5 360 -->
+  <div class="card">
+    <h2><span class="n">Step 3</span> Photo of the Creek</h2>
+        <div class="pgrid" id="sphotoGrid"></div>
+    <button class="btn noprint" type="button" id="takeSPhotoBtn">&#128247; Take creek photo</button>
+    <input type="file" id="sphotoInput" accept="image/*" capture="environment" class="hidden">
+    <p class="hint bad hidden" id="sphotoIncomplete"></p>
+    <p class="hint">One picture of the creek and station, every visit.</p>
+  </div>
+
+  <!-- 4 flow (optional) -->
+  <div class="card">
+    <h2><span class="n">Step 4</span> Flow Measurement <span class="ext" style="text-transform:none">(optional)</span></h2>
+    <div class="f" style="max-width:240px">
+      <label>Flow (m&sup3;/s)</label>
+      <input type="text" data-k="pq.0" class="mono" inputmode="decimal">
+    </div>
+    <p class="hint">Only if you measured one &mdash; leave blank otherwise.</p>
+  </div>
+
+  <div class="actions noprint">
+    <button class="btn pri" type="button" id="finishBtn">Finish &amp; send sheet</button>
+    <button class="btn" type="button" id="printBtn">Print / PDF</button>
+  </div>
+  <p class="hint noprint" id="sendHint">Sends the finished sheet to the OneDrive app (or to Downloads if sharing isn&rsquo;t available).</p>
+
+  <p class="foot">
+    cbwmf@LivingLakesCanada.ca<br>
+    Slow is Smooth, &amp; Smooth is Fast
+  </p>
+</div>
+
+<button id="updatePill" class="hidden noprint" type="button">Updated &mdash; tap to reload</button>
+
+<script>
+"use strict";
+var BAKED=null;/*BAKEDCFG*/
+
+var SITES=["CoN_5-Mile at MOE","CoN_Anderson & Fell","CoN_Anderson Reservoir","CoN_Anderson at Elwyn",
+"CoN_Anderson at Gordon","CoN_Consumption","CoN_Cottonwood","CoN_MtnStn Resevoir",
+"CoN_Nelson CS Meteorological Data","CoN_Selous LB","CoN_Selous Reservoir","HPWPS_Harrop",
+"HPWPS_Narrows","HPWPS_Procter","HPWPS_Slater","LLC_Akokli at Bridge","LLC_Akokli at Pool",
+"LLC_Apex Lower","LLC_Apex Upper","LLC_Apex Wetland","LLC_Beaver Wetland","LLC_Beaver at Bubbles",
+"LLC_Beaver at Village","LLC_Blueberry at Columbia","LLC_Blueberry at Pulson","LLC_Bonanza",
+"LLC_Caribou Forest","LLC_Caribou Hwy","LLC_Dumont","LLC_Gray","LLC_Hanna","LLC_Kelly",
+"LLC_McDonald Forest","LLC_Slocan Lk at New Denver","LLC_Slocan Lk at Slocan","LLC_Summit Lk at Ck",
+"LLC_Topping","LLC_VOW-16","LLC_VOW-17","LLC_Wolverton Lower","SIFCo_Alba at Culvert",
+"SIFCo_Winlaw","Tsenbo_Ross"];
+
+/* Staff gauge angle multipliers, per Rory 2026-08-20. Calc'd SG = SG x multiplier.
+   Every site not listed here has a vertical gauge and takes no angle correction.
+   Update this table when a gauge is re-surveyed or a leaning gauge is straightened. */
+var SG_ANGLE={
+  "CoN_Anderson & Fell":    "0.976",
+  "CoN_Anderson at Gordon": "0.988",
+  "LLC_Apex Lower":         "0.977",
+  "LLC_Kelly":              "0.828"
+};
+
+var STORE="kei-quicksheet-v1";
+var $=function(id){ return document.getElementById(id); };
+/* App build. Bump on every version handed over, so a phone can be checked at a glance
+   against the filename it came from. */
+var BUILD="1";
+var RECORD=!!BAKED;                 /* opened as a finished record, not the blank app */
+var PRINTMODE=/(^|[?#&])print/.test(location.search+location.hash);
+var S=null, saveTimer=null, book=null;
+
+/* ---------- state ---------- */
+function blank(){
+  return {
+    v:"quick", sheetType:"quick", site:"", date:todayISO(), tz:"-7",
+    arrive:"", depart:"", tech:"",
+    sg:{a:{time:"",sg:"",ang:"",calc:""}},
+    pq:[""], sphotoIds:[]
+  };
+}
+function todayISO(){
+  var d=new Date(), p=function(n){ return String(n).padStart(2,"0"); };
+  return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());
+}
+function nowHM(){
+  var d=new Date(), p=function(n){ return String(n).padStart(2,"0"); };
+  return p(d.getHours())+":"+p(d.getMinutes());
+}
+function get(path){
+  var parts=path.split("."), o=S;
+  for(var i=0;i<parts.length;i++){
+    if(o==null) return "";
+    o=o[/^\d+$/.test(parts[i])?Number(parts[i]):parts[i]];
+  }
+  return o==null?"":o;
+}
+function set(path,val){
+  var parts=path.split("."), o=S;
+  for(var i=0;i<parts.length-1;i++){
+    var k=/^\d+$/.test(parts[i])?Number(parts[i]):parts[i];
+    if(o[k]==null) o[k]={};
+    o=o[k];
+  }
+  o[parts[parts.length-1]]=val;
+}
+
+/* ---------- storage ---------- */
+function loadBook(){
+  if(RECORD) return {tech:"",tz:"-7",cur:null,drafts:[]};
+  try{
+    var raw=localStorage.getItem(STORE);
+    if(raw){
+      var b=JSON.parse(raw);
+      if(b && b.drafts) return b;
+    }
+  }catch(e){}
+  return {tech:"",tz:"-7",cur:null,drafts:[]};
+}
+function saveBook(){
+  if(RECORD) return;
+  try{ localStorage.setItem(STORE,JSON.stringify(book)); }catch(e){}
+}
+function newId(){
+  return "s"+Date.now().toString(36)+Math.floor(Math.random()*4096).toString(36);
+}
+function currentDraft(){
+  for(var i=0;i<book.drafts.length;i++) if(book.drafts[i].id===book.cur) return book.drafts[i];
+  return null;
+}
+function pill(txt,cls){
+  var p=$("statePill");
+  p.textContent=txt;
+  p.className="pill"+(cls?" "+cls:"");
+}
+function touch(){
+  if(RECORD){ pill("Record — unsaved edits","dirty"); return; }
+  pill("Saving…","dirty");
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(commit,400);
+}
+function commit(){
+  if(RECORD) return;
+  var d=currentDraft();
+  if(!d){ d={id:book.cur||newId(),state:S,updated:0}; book.cur=d.id; book.drafts.unshift(d); }
+  d.state=S;
+  d.updated=Date.now();
+  book.tz=S.tz||book.tz;
+  saveBook();
+  drawDrafts();
+  pill("Saved "+nowHM(),"ok");
+}
+
+/* ---------- build the repeated bits ---------- */
+function buildSites(){
+  var sel=$("siteSel");
+  SITES.forEach(function(s){
+    var o=document.createElement("option");
+    o.value=s; o.textContent=s;
+    sel.appendChild(o);
+  });
+}
+/* ---------- flow sheet photos ----------
+   Photos are far too big for localStorage, so they live in IndexedDB keyed by
+   draft id + photo id; the draft only carries the ids. On Finish & send they are
+   embedded in the record as data: URLs, so the sent file stays self-contained. */
+var IDB=null;
+function idb(){
+  return new Promise(function(res,rej){
+    if(IDB) return res(IDB);
+    var r=indexedDB.open("kei-quicksheet",1);
+    r.onupgradeneeded=function(){ r.result.createObjectStore("photos"); };
+    r.onsuccess=function(){ IDB=r.result; res(IDB); };
+    r.onerror=function(){ rej(r.error||new Error("IndexedDB unavailable")); };
+  });
+}
+function idbOp(mode,fn){
+  return idb().then(function(db){
+    return new Promise(function(res,rej){
+      var tx=db.transaction("photos",mode), st=tx.objectStore("photos");
+      var out=fn(st);
+      tx.oncomplete=function(){ res(out&&"result" in out?out.result:undefined); };
+      tx.onerror=function(){ rej(tx.error); };
+    });
+  });
+}
+function idbPut(k,v){ return idbOp("readwrite",function(st){ return st.put(v,k); }); }
+function idbGet(k){ return idbOp("readonly",function(st){ return st.get(k); }); }
+function idbDel(k){ return idbOp("readwrite",function(st){ return st.delete(k); }); }
+
+function photoKey(draftId,photoId){ return draftId+":"+photoId; }
+function deleteDraftPhotos(draft){
+  var ids=((draft.state&&draft.state.sphotoIds)||[]);
+  ids.forEach(function(pid){ idbDel(photoKey(draft.id,pid)).catch(function(){}); });
+}
+
+function downscalePhoto(file){
+  return new Promise(function(res,rej){
+    var url=URL.createObjectURL(file), img=new Image();
+    img.onload=function(){
+      var w=img.naturalWidth,h=img.naturalHeight,MAX=2200;
+      var sc=Math.min(1,MAX/Math.max(w,h));
+      var c=document.createElement("canvas");
+      c.width=Math.max(1,Math.round(w*sc)); c.height=Math.max(1,Math.round(h*sc));
+      c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+      URL.revokeObjectURL(url);
+      c.toBlob(function(b){ b?res(b):rej(new Error("could not encode the photo")); },"image/jpeg",0.85);
+    };
+    img.onerror=function(){ URL.revokeObjectURL(url); rej(new Error("that file is not a readable image")); };
+    img.src=url;
+  });
+}
+function addStationPhoto(file){
+  return downscalePhoto(file).then(function(blob){
+    var pid="s"+Date.now().toString(36)+Math.floor(Math.random()*4096).toString(36);
+    var olds=S.sphotoIds||[];
+    return idbPut(photoKey(book.cur,pid),blob).then(function(){
+      olds.forEach(function(op){ idbDel(photoKey(book.cur,op)).catch(function(){}); });
+      S.sphotoIds=[pid];                 /* one station photo — retaking replaces it */
+      touch(); drawSPhotos(); revalidateIfFlagged();
+    });
+  }).catch(function(e){
+    alert("Couldn't save that photo — "+(e&&e.message?e.message:e)+". The sheet itself is unaffected.");
+  });
+}
+var sphotoUrls=[];
+function drawSPhotos(){
+  var host=$("sphotoGrid");
+  if(!host) return;
+  sphotoUrls.forEach(function(u){ URL.revokeObjectURL(u); });
+  sphotoUrls=[];
+  if(RECORD){
+    host.className="pgrid rec";
+    host.innerHTML=((BAKED&&BAKED.sphotos)||[]).map(function(d){
+      return '<div class="ph"><img src="'+d+'" alt="station photo"></div>';
+    }).join("")||'<p class="hint" style="margin:0">No station photo was taken.</p>';
+    return;
+  }
+  var ids=(S&&S.sphotoIds)||[];
+  if(!ids.length){ host.innerHTML=""; return; }
+  host.innerHTML=ids.map(function(pid){
+    return '<div class="ph" data-pid="'+pid+'"><img alt="station photo">'+
+      '<button type="button" class="phx noprint" data-delsphoto="'+pid+'">&times;</button></div>';
+  }).join("");
+  ids.forEach(function(pid){
+    idbGet(photoKey(book.cur,pid)).then(function(blob){
+      var cell=host.querySelector('[data-pid="'+pid+'"] img');
+      if(!cell) return;
+      if(!blob){ cell.parentNode.innerHTML='<span class="hint">photo missing</span>'; return; }
+      var u=URL.createObjectURL(blob);
+      sphotoUrls.push(u); cell.src=u;
+    }).catch(function(){});
+  });
+}
+
+function loadDataUrlsFor(draftId,ids){
+  ids=ids||[];
+  return Promise.all(ids.map(function(pid){
+    return idbGet(photoKey(draftId,pid)).then(function(blob){
+      if(!blob) return null;
+      return new Promise(function(res){
+        var r=new FileReader();
+        r.onload=function(){ res(r.result); };
+        r.onerror=function(){ res(null); };
+        r.readAsDataURL(blob);
+      });
+    }).catch(function(){ return null; });
+  })).then(function(list){ return list.filter(Boolean); });
+}
+function loadStationDataUrls(){ return loadDataUrlsFor(book.cur,S&&S.sphotoIds); }
+
+function buildSegs(){
+  var segs=document.querySelectorAll("[data-seg]");
+  Array.prototype.forEach.call(segs,function(el){
+    var path=el.getAttribute("data-seg");
+    var name=path.replace(/\./g,"_");
+    el.innerHTML=el.getAttribute("data-opts").split("|").map(function(o){
+      return '<label><input type="radio" name="'+name+'" value="'+o+'" data-radio="'+path+'"><span>'+o+'</span></label>';
+    }).join("");
+  });
+}
+
+/* ---------- render / bind ---------- */
+function render(){
+  if(S&&S.sphotoIds===undefined) S.sphotoIds=[];
+  Array.prototype.forEach.call(document.querySelectorAll("[data-k]"),function(el){
+    var v=get(el.getAttribute("data-k"));
+    if(el.type==="checkbox") el.checked=!!v;
+    else el.value=(v===null||v===undefined)?"":v;
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-radio]"),function(el){
+    el.checked=(get(el.getAttribute("data-radio"))===el.value);
+  });
+  paintSegs();
+  drawSPhotos();
+  var row=$("angRow_a");
+  if(row) row.classList.toggle("hidden",!SG_ANGLE[S.site]);
+  showAngleNote();
+}
+/* :has() does the highlight on modern browsers; this keeps it visible everywhere else */
+function paintSegs(){
+  Array.prototype.forEach.call(document.querySelectorAll(".seg label"),function(l){
+    var i=l.querySelector("input");
+    l.classList.toggle("on",!!(i&&i.checked));
+  });
+}
+function bind(){
+  document.addEventListener("click",function(e){
+    var h=e.target.closest?e.target.closest(".card > h2"):null;
+    if(!h) return;
+    h.parentNode.classList.toggle("closed");
+  });
+  document.addEventListener("input",function(e){
+    var el=e.target;
+    if(el.hasAttribute&&el.hasAttribute("data-k")){
+      set(el.getAttribute("data-k"), el.type==="checkbox"?el.checked:el.value);
+      if(el.hasAttribute("data-calc")) autoCalc(el.getAttribute("data-calc"));
+      revalidateIfFlagged();
+      touch();
+    }
+  });
+  document.addEventListener("change",function(e){
+    var el=e.target;
+    if(el.hasAttribute&&el.hasAttribute("data-radio")){
+      if(el.checked){ set(el.getAttribute("data-radio"),el.value); paintSegs(); touch(); }
+      return;
+    }
+    if(el.name==="pen"){ paintSegs(); return; }
+    if(el.hasAttribute&&el.hasAttribute("data-k")){
+      set(el.getAttribute("data-k"), el.type==="checkbox"?el.checked:el.value);
+      if(el.id==="siteSel") applySiteAngle();
+      touch();
+    }
+  });
+  /* time normalising on blur */
+  document.addEventListener("blur",function(e){
+    var el=e.target;
+    if(el.hasAttribute&&el.hasAttribute("data-time")){
+      var t=normTime(el.value);
+      if(t!==el.value){ el.value=t; set(el.getAttribute("data-k"),t); touch(); }
+    }
+    if(el.hasAttribute&&el.hasAttribute("data-dateiso")){
+      var d=String(el.value||"").replace(/[^\d]/g,"");
+      if(d.length===8){
+        var iso=d.slice(0,4)+"-"+d.slice(4,6)+"-"+d.slice(6);
+        if(iso!==el.value){ el.value=iso; set(el.getAttribute("data-k"),iso); touch(); }
+      }
+    }
+  },true);
+  /* Now buttons */
+  document.addEventListener("click",function(e){
+    var b=e.target.closest?e.target.closest("[data-now],[data-nowk]"):null;
+    if(!b) return;
+    var t=nowHM();
+    if(b.hasAttribute("data-now")){
+      var el=$(b.getAttribute("data-now"));
+      el.value=t; set(el.getAttribute("data-k"),t);
+    }else{
+      var path=b.getAttribute("data-nowk");
+      var f=document.querySelector('[data-k="'+path+'"]');
+      if(f) f.value=t;
+      set(path,t);
+    }
+    touch();
+  });
+}
+function normTime(s){
+  s=String(s||"").trim();
+  if(!s) return "";
+  var d=s.replace(/[^\d]/g,"");
+  if(d.length===3) return d[0]+":"+d.slice(1);
+  if(d.length===4) return d.slice(0,2)+":"+d.slice(2);
+  return s;
+}
+function num(v){
+  var n=parseFloat(String(v).replace(/[^\d.\-+eE]/g,""));
+  return isFinite(n)?n:null;
+}
+function autoCalc(side){
+  var sg=num(get("sg."+side+".sg")), ang=num(get("sg."+side+".ang"));
+  var f=document.querySelector('[data-k="sg.'+side+'.calc"]');
+  var prev=get("sg."+side+".calcAuto");
+  var cur=String(get("sg."+side+".calc")||"");
+  if(cur!==""&&cur!==prev) return;              /* typed over by hand — leave it */
+  /* blank rather than stale when there's no angle to apply */
+  var out=(sg===null||ang===null)?"":(sg*ang).toFixed(3);
+  set("sg."+side+".calc",out);
+  set("sg."+side+".calcAuto",out);
+  if(f) f.value=out;
+}
+
+/* The gauge angle belongs to the station, not the visit, so fill it from the table
+   as soon as a station is picked. A hand-typed angle is never overwritten. */
+function applySiteAngle(){
+  /* the angle belongs to the station and is hard-coded — the fields are read-only
+     and only exist on screen at the four leaning-gauge stations */
+  var m=SG_ANGLE[S.site]||"";
+  ["a"].forEach(function(side){
+    set("sg."+side+".ang",m);
+    set("sg."+side+".angAuto",m);
+    var f=document.querySelector('[data-k="sg.'+side+'.ang"]');
+    if(f) f.value=m;
+    var row=$("angRow_"+side);
+    if(row) row.classList.toggle("hidden",!m);
+    autoCalc(side);
+  });
+  showAngleNote();
+}
+function showAngleNote(){
+  var h=$("calcHint");
+  if(!h) return;
+  var m=SG_ANGLE[S.site];
+  if(!S.site) h.textContent="The Calculated Staff Gauge fills in as reading × angle once you pick a station.";
+  else if(m)  h.textContent=S.site+" leans — angle "+m+" is set for this station, so Calculated Staff Gauge = reading × "+m+".";
+  else        h.textContent=S.site+" has a vertical gauge — no angle correction needed.";
+}
+/* ---------- drafts UI ---------- */
+function drawDrafts(){
+  if(RECORD) return;
+  var host=$("draftList");
+  if(!book.drafts.length){ host.innerHTML='<p class="hint" style="margin:0">No sheets yet. Start one below.</p>'; return; }
+  host.innerHTML=book.drafts.map(function(d){
+    var st=d.state||{};
+    var nm=st.site||"(no station yet)";
+    var when=st.date||"";
+    var t=[st.arrive,st.depart].filter(Boolean).join("–");
+    return '<div class="draft'+(d.id===book.cur?" cur":"")+'" data-id="'+d.id+'">'+
+      '<div class="d1"><div class="dn">'+esc(nm)+'</div>'+
+      '<div class="dd">'+esc(when+(t?"  "+t:""))+'</div></div>'+
+      (d.id===book.cur?'':'<button class="btn sm" type="button" data-open="'+d.id+'">Open</button>')+
+      '<button class="btn sm danger" type="button" data-del="'+d.id+'">&times;</button>'+
+      '</div>';
+  }).join("");
+}
+function esc(s){
+  return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+
+/* Text boxes clip whatever doesn't fit. On the archive copy that would quietly
+   lose field notes, so swap every one for a block that wraps. Print render only. */
+function flattenForPrint(){
+  var sel="input[type=text],input[type=date],select,textarea";
+  Array.prototype.forEach.call(document.querySelectorAll(sel),function(el){
+    var div=document.createElement("div");
+    div.className="printval"+(el.tagName==="TEXTAREA"?" tall":"");
+    div.textContent=el.value||"";
+    el.parentNode.replaceChild(div,el);
+  });
+}
+
+/* Section 1 must be complete before a sheet can leave the phone (Rory, build 7).
+   Red state only exists after a failed send, then clears live as fields fill. */
+var VISIT_REQ=[["site","Station Name"],["date","Date (YYYY-MM-DD)"],
+               ["arrive","Arrival Time"],["tech","Your Name"]];
+function validateVisit(){
+  var missing=[];
+  VISIT_REQ.forEach(function(f){
+    var el=document.querySelector('[data-k="'+f[0]+'"]');
+    var v=String(get(f[0])||"").trim();
+    var ok=v!=="";
+    if(f[0]==="date") ok=/^\d{4}-\d{2}-\d{2}$/.test(v);
+    if(el) el.classList.toggle("missing",!ok);
+    if(!ok) missing.push(f);
+  });
+  var note=$("visitIncomplete");
+  if(note){
+    if(missing.length){
+      note.textContent="Not sent — still missing: "+missing.map(function(f){ return f[1]; }).join(", ")+".";
+      note.classList.remove("hidden");
+    }else note.classList.add("hidden");
+  }
+
+  /* the staff gauge reading is the point of the visit */
+  var sgOK=String(get("sg.a.time")||"").trim()!==""&&String(get("sg.a.sg")||"").trim()!=="";
+  ["sg.a.time","sg.a.sg"].forEach(function(k){
+    var el2=document.querySelector('[data-k="'+k+'"]');
+    if(el2) el2.classList.toggle("missing",!sgOK);
+  });
+  var sgNote=$("sgIncomplete");
+  if(sgNote){
+    if(!sgOK){
+      sgNote.textContent="Not sent — enter the staff gauge reading and the time you read it.";
+      sgNote.classList.remove("hidden");
+      missing.push(['[data-k="sg.a.time"]',"Staff gauge reading"]);
+    }else sgNote.classList.add("hidden");
+  }
+
+  /* one phone picture of the creek, every visit */
+  var nS=RECORD?((BAKED&&BAKED.sphotos)||[]).length:((S.sphotoIds||[]).length);
+  var sNote=$("sphotoIncomplete");
+  if(sNote){
+    if(!nS){
+      sNote.textContent="Not sent — take the creek photo with this phone.";
+      sNote.classList.remove("hidden");
+      missing.push(["#takeSPhotoBtn","Creek photo"]);
+    }else sNote.classList.add("hidden");
+  }
+  return missing;
+}
+
+/* any red state on screen updates live as the tech fixes things */
+function revalidateIfFlagged(){
+  var flagged=["visitIncomplete","sgIncomplete","sphotoIncomplete"].some(function(id){
+    var el=$(id); return el&&el.className.indexOf("hidden")===-1;
+  });
+  if(flagged) validateVisit();
+}
+
+/* ---------- finish & send ---------- */
+function fileNameFor(st){
+  var site=(st.site||"Unassigned").replace(/[\\\/:*?"<>|]/g,"-");
+  return (st.date||todayISO())+"_"+site+"_Quick.html";
+}
+function fileName(){ return fileNameFor(S); }
+function buildFileFor(st,sphotos){
+  var clone=document.documentElement.cloneNode(true);
+  function pick(s){ return clone.querySelector(s); }
+  /* hide, never remove — init() in the saved copy still wires these up */
+  var dc=pick("#draftsCard"); if(dc) dc.className="card noprint hidden";
+  var t=pick("title"); if(t) t.textContent="Quick Sheet — "+(st.site||"")+" "+(st.date||"");
+  var b=pick("#recBanner");
+  if(b){ b.className="banner"; b.textContent="Completed quick sheet — "+(st.site||"")+"  "+(st.date||"")+
+         (st.tech?"  ·  "+st.tech:""); }
+  var sh=pick("#sendHint"); if(sh) sh.className="hint noprint hidden";
+  var fb=pick("#finishBtn"); if(fb) fb.textContent="Re-send sheet";
+  /* the install banner / update pill may be showing right now — a record must
+     never carry them, it is the archive copy of a visit, not an app */
+  var ib=pick("#installBanner"); if(ib) ib.className="banner warn hidden noprint";
+  var up=pick("#updatePill"); if(up) up.className="hidden noprint";
+
+  var html="<!doctype html>\n"+clone.outerHTML;
+  var payload=JSON.parse(JSON.stringify(st));
+  payload.savedAt=new Date().toISOString();
+  payload.build=BUILD;
+  delete payload.sphotoIds;               /* IndexedDB keys mean nothing off this phone */
+  payload.sphotos=sphotos||[];
+  var json=JSON.stringify(payload).replace(/<\//g,"<\\/");
+  var re=/var BAKED=[^\n]*?;\/\*BAKEDCFG\*\//;
+  if(!re.test(html)) return null;
+  return html.replace(re,function(){ return "var BAKED="+json+";/*"+"BAKEDCFG"+"*/"; });
+}
+function buildFile(sphotos){ return buildFileFor(S,sphotos); }
+
+/* ---------- send everything in one go ----------
+   sheetProblems mirrors validateVisit's rules but reads a plain state object, so
+   every sheet on the phone can be checked without loading it. KEEP THE TWO IN STEP. */
+function gv(st,path){
+  var parts=path.split("."), o=st;
+  for(var i=0;i<parts.length;i++){
+    if(o==null) return "";
+    o=o[/^\d+$/.test(parts[i])?Number(parts[i]):parts[i]];
+  }
+  return o==null?"":o;
+}
+function sheetProblems(st){
+  var out=[];
+  function need(v,label){ if(String(v||"").trim()==="") out.push(label); }
+  need(gv(st,"site"),"station");
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(String(gv(st,"date")||""))) out.push("date");
+  need(gv(st,"arrive"),"arrival time");
+  need(gv(st,"tech"),"name");
+  if(String(gv(st,"sg.a.time")||"").trim()===""||String(gv(st,"sg.a.sg")||"").trim()==="")
+    out.push("staff gauge reading");
+  if(((st.sphotoIds)||[]).length<1) out.push("creek photo");
+  return out;
+}
+function exportAll(){
+  commit();
+  var summary=$("exportSummary");
+  function say(t){ if(summary){ summary.style.display="block"; summary.textContent=t; } }
+  var ready=[], notReady=[];
+  (book.drafts||[]).forEach(function(d){
+    if(!d.state) return;
+    var probs=sheetProblems(d.state);
+    if(probs.length) notReady.push({d:d,probs:probs}); else ready.push(d);
+  });
+  if(!ready.length){
+    say(notReady.length
+      ? "Nothing ready to send yet — open each sheet and finish what's red."
+      : "No sheets on this phone.");
+    return;
+  }
+  say("Preparing "+ready.length+" sheet(s)…");
+  Promise.all(ready.map(function(d){
+    return loadDataUrlsFor(d.id,(d.state.sphotoIds)||[]).then(function(sph){
+      var html=buildFileFor(d.state,sph);
+      return html?new File([new Blob([html],{type:"text/html"})],fileNameFor(d.state),{type:"text/html"}):null;
+    });
+  })).then(function(files){
+    files=files.filter(Boolean);
+    var held=notReady.length
+      ? "  Held back: "+notReady.map(function(x){ return (x.d.state.site||"unnamed")+" ("+x.probs[0]+"…)"; }).join(", ")+"."
+      : "";
+    function doneMsg(how){ say(files.length+" sheet(s) "+how+"."+held); }
+    if(navigator.canShare){
+      try{
+        if(navigator.canShare({files:files})){
+          navigator.share({files:files,title:"KEI quick sheets"})
+            .then(function(){ doneMsg("shared"); })
+            .catch(function(err){
+              if(err&&err.name==="AbortError"){ say("Share cancelled — nothing sent."+held); return; }
+              files.forEach(function(f,i){ setTimeout(function(){ download(f,f.name); },i*400); });
+              doneMsg("downloaded");
+            });
+          return;
+        }
+      }catch(e){}
+    }
+    files.forEach(function(f,i){ setTimeout(function(){ download(f,f.name); },i*400); });
+    doneMsg("downloaded");
+  }).catch(function(e){
+    say("Export failed — "+(e&&e.message?e.message:e)+". Nothing was sent.");
+  });
+}
+
+function finish(){
+  var missing=validateVisit();
+  if(missing.length){
+    var sel0=missing[0][0];
+    var first=sel0.charAt(0)==="#"||sel0.charAt(0)==="["
+      ? document.querySelector(sel0)
+      : document.querySelector('[data-k="'+sel0+'"]');
+    if(first){
+      var fc=first.closest(".card"); if(fc) fc.classList.remove("closed");
+      first.scrollIntoView({block:"center"});   /* instant — smooth stalls in throttled tabs */
+      setTimeout(function(){ try{ first.focus({preventScroll:true}); }catch(e){} },400);
+    }
+    pill("Sheet not sent","dirty");
+    return;
+  }
+  if(RECORD){ finishWith((BAKED&&BAKED.sphotos)||[]); return; }
+  loadStationDataUrls().then(function(sp){
+    if(sp.length<((S.sphotoIds||[]).length)){
+      if(!confirm("The creek photo could not be read from storage and will be missing from the sent sheet. Send anyway?")) return;
+    }
+    finishWith(sp);
+  }).catch(function(){ finishWith([]); });
+}
+function finishWith(sphotos){
+  var html=buildFile(sphotos);
+  if(!html){ alert("Couldn't prepare the file — the page source has been altered."); return; }
+  var name=fileName();
+  var blob=new Blob([html],{type:"text/html"});
+
+  if(navigator.canShare){
+    try{
+      var file=new File([blob],name,{type:"text/html"});
+      if(navigator.canShare({files:[file]})){
+        navigator.share({files:[file],title:name})
+          .then(function(){ pill("Sent","ok"); })
+          .catch(function(err){
+            /* backing out of the share sheet is a cancel — saying "saved"
+               there would be a lie, and the download fallback is flaky in
+               installed iOS apps anyway */
+            if(err&&err.name==="AbortError"){ pill("Send cancelled — sheet kept","dirty"); return; }
+            download(blob,name);
+          });
+        return;
+      }
+    }catch(e){}
+  }
+  download(blob,name);
+}
+function download(blob,name){
+  var a=document.createElement("a");
+  var url=URL.createObjectURL(blob);
+  a.href=url; a.download=name;
+  document.body.appendChild(a); a.click(); a.parentNode.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); },4000);
+  pill("Saved to device","ok");
+}
+
+/* ---------- installable app layer ----------
+   Only on the hosted origin (or localhost while testing). A baked record, the
+   #print render, and a copy opened from file:// all skip this entirely, so the
+   sheet stays a plain self-contained HTML file everywhere it always worked. */
+var HOSTED=location.protocol==="https:"||location.hostname==="localhost"||location.hostname==="127.0.0.1";
+var STANDALONE=(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;
+var IOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+var deferredInstall=null;
+
+function showInstallUI(){
+  if(STANDALONE) return;
+  var b=$("installBanner"); if(!b) return;
+  $("installMsg").innerHTML=IOS
+    ? "Install before filling anything in: tap <b>Share</b>, then <b>Add to Home Screen</b>. Sheets typed in this tab will NOT follow into the installed app &mdash; <b>Finish &amp; send</b> any open sheet first."
+    : "Install this on the phone so it opens from an icon and works with no signal.";
+  $("installBtn").classList.toggle("hidden",IOS||!deferredInstall);
+  b.classList.remove("hidden");
+}
+function setupApp(){
+  /* ?nosw = live-preview mode for desktop review sessions: no service worker,
+     so every refresh shows the file as it is on disk right now. If one is already
+     installed (a visit without ?nosw), evict it and reload once so the frozen
+     copy can never masquerade as the live file. */
+  if(/(^|[?#&])nosw/.test(location.search+location.hash)){
+    if("serviceWorker" in navigator){
+      navigator.serviceWorker.getRegistrations().then(function(regs){
+        if(!regs.length) return;
+        Promise.all(regs.map(function(rg){ return rg.unregister(); })).then(function(){
+          return caches.keys().then(function(ks){ return Promise.all(ks.map(function(k){ return caches.delete(k); })); });
+        }).then(function(){
+          if(navigator.serviceWorker.controller && !sessionStorage.getItem("noswReloaded")){
+            sessionStorage.setItem("noswReloaded","1");
+            location.reload();
+          }
+        });
+      });
+    }
+    return;
+  }
+  if(!HOSTED||RECORD||PRINTMODE) return;
+  if("serviceWorker" in navigator){
+    navigator.serviceWorker.register("sw.js").then(function(reg){
+      /* a NEW worker reaching "activated" while an OLD one was already active
+         is the one true signal of an update — survives hard reloads, where
+         navigator.serviceWorker.controller is null despite an active worker */
+      function offerWhenActivated(w){
+        if(!w) return;
+        w.addEventListener("statechange",function(){
+          if(w.state==="activated") $("updatePill").classList.remove("hidden");
+        });
+      }
+      if(reg.waiting&&reg.active) $("updatePill").classList.remove("hidden");
+      reg.addEventListener("updatefound",function(){
+        if(reg.active) offerWhenActivated(reg.installing);
+      });
+    }).catch(function(){});
+  }
+  /* drafts must survive the OS cleaning house — installed apps are usually
+     granted this automatically, but ask rather than assume */
+  if(navigator.storage&&navigator.storage.persist){
+    navigator.storage.persist().catch(function(){});
+  }
+  window.addEventListener("beforeinstallprompt",function(e){
+    e.preventDefault();
+    deferredInstall=e;
+    showInstallUI();
+  });
+  window.addEventListener("appinstalled",function(){
+    deferredInstall=null;
+    $("installBanner").classList.add("hidden");
+  });
+  $("installBtn").addEventListener("click",function(){
+    if(deferredInstall){ deferredInstall.prompt(); deferredInstall=null; $("installBtn").classList.add("hidden"); }
+  });
+  $("updatePill").addEventListener("click",function(){
+    commit();
+    location.reload();
+  });
+  if(IOS) showInstallUI();
+}
+
+/* ---------- boot ---------- */
+function startSheet(state,id){
+  S=state;
+  if(!RECORD){ book.cur=id; saveBook(); }
+  render();
+  drawDrafts();
+  window.scrollTo(0,0);
+}
+function init(){
+  buildSites(); buildSegs();
+  book=loadBook();
+
+  if(RECORD){
+    $("draftsCard").classList.add("hidden");
+    S=BAKED;
+    var b=$("recBanner");
+    b.className="banner";
+    b.textContent="Completed quick sheet — "+(S.site||"")+"  "+(S.date||"")+(S.tech?"  ·  "+S.tech:"");
+    pill("Record","ok");
+    var tsp=$("takeSPhotoBtn"); if(tsp) tsp.classList.add("hidden");
+  }else{
+    var d=currentDraft();
+    if(d){ S=d.state; }
+    else{
+      S=blank();
+      S.tz=book.tz||"-7";
+      book.cur=newId();
+      book.drafts.unshift({id:book.cur,state:S,updated:Date.now()});
+      saveBook();
+    }
+    pill("Saved","ok");
+  }
+
+  bind();
+  render();
+  drawDrafts();
+
+  $("exportAllBtn").addEventListener("click",exportAll);
+  $("newSheetBtn").addEventListener("click",function(){
+    commit();
+    var s=blank();
+    s.tz=book.tz||"-7";
+    var id=newId();
+    book.drafts.unshift({id:id,state:s,updated:Date.now()});
+    startSheet(s,id);
+    commit();
+  });
+  $("draftList").addEventListener("click",function(e){
+    var o=e.target.closest?e.target.closest("[data-open]"):null;
+    var x=e.target.closest?e.target.closest("[data-del]"):null;
+    if(o){
+      commit();
+      var id=o.getAttribute("data-open");
+      for(var i=0;i<book.drafts.length;i++) if(book.drafts[i].id===id) return startSheet(book.drafts[i].state,id);
+    }
+    if(x){
+      var did=x.getAttribute("data-del");
+      if(!confirm("Delete this sheet from the phone? It cannot be undone.")) return;
+      book.drafts.filter(function(d){ return d.id===did; }).forEach(deleteDraftPhotos);
+      book.drafts=book.drafts.filter(function(d){ return d.id!==did; });
+      if(book.cur===did){
+        if(book.drafts.length) startSheet(book.drafts[0].state,book.drafts[0].id);
+        else{
+          var s2=blank(); s2.tz=book.tz||"-7";
+          var nid=newId();
+          book.drafts.push({id:nid,state:s2,updated:Date.now()});
+          startSheet(s2,nid);
+        }
+      }
+      saveBook(); drawDrafts();
+    }
+  });
+  $("printBtn").addEventListener("click",function(){ window.print(); });
+  $("finishBtn").addEventListener("click",finish);
+  $("takeSPhotoBtn").addEventListener("click",function(){ $("sphotoInput").click(); });
+  $("sphotoInput").addEventListener("change",function(){
+    var f=this.files&&this.files[0];
+    this.value="";
+    if(f) addStationPhoto(f);
+  });
+  $("sphotoGrid").addEventListener("click",function(e){
+    var b=e.target.closest?e.target.closest("[data-delsphoto]"):null;
+    if(!b) return;
+    if(!confirm("Remove the creek photo?")) return;
+    var pid=b.getAttribute("data-delsphoto");
+    S.sphotoIds=(S.sphotoIds||[]).filter(function(x){ return x!==pid; });
+    idbDel(photoKey(book.cur,pid)).catch(function(){});
+    touch(); drawSPhotos(); revalidateIfFlagged();
+  });
+
+  window.addEventListener("beforeunload",function(){ if(!RECORD) commit(); });
+  /* iOS home-screen apps never fire beforeunload on swipe-away; hidden/pagehide
+     do fire, and without this the last ~400 ms of typing (the debounce) is lost */
+  document.addEventListener("visibilitychange",function(){
+    if(document.visibilityState==="hidden"&&!RECORD){ clearTimeout(saveTimer); commit(); }
+  });
+  window.addEventListener("pagehide",function(){ if(!RECORD){ clearTimeout(saveTimer); commit(); } });
+
+  $("buildTag").textContent="build "+BUILD;
+  setupApp();
+  if(PRINTMODE) flattenForPrint();
+}
+init();
+</script>
+</body>
+</html>
